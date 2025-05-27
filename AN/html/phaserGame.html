@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Memory - Phaser Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+    <script type="module" src="../js/phaserGame.js"></script>
+	<link rel="stylesheet" href="../styles/main.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #87CEEB;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #gameContainer {
+            width: 800px;
+            height: 600px;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        #buttons {
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin: 0 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>  
+    <div id="gameContainer"></div>
+    <button id="pausar">Pausar Partida</button>
+</body>
+</html>
