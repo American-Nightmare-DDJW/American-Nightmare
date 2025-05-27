@@ -18,7 +18,7 @@ const config = {
     }
 };
 
-let player;
+let player, guardia;
 let keys;
 let walls;
 
@@ -41,21 +41,26 @@ function create() {
     });
 
     // Crear grupo de paredes estáticas
-    walls = this.physics.add.staticGroup();
+    /*walls = this.physics.add.staticGroup();
 
     walls.create(400, 50, 'wall').setScale(2, 1).setScale(0.3).refreshBody(); // pared superior
     walls.create(400, 550, 'wall').setScale(2, 1).setScale(0.3).refreshBody(); // pared inferior
     walls.create(50, 300, 'wall').setScale(1, 6).setScale(0.3).refreshBody(); // izquierda
     walls.create(750, 300, 'wall').setScale(1, 6).setScale(0.3).refreshBody(); // derecha
 
-    walls.create(300, 300, 'wall').setScale(1.5, 0.5).setScale(0.3).refreshBody();
+    walls.create(300, 300, 'wall').setScale(1.5, 0.5).setScale(0.3).refreshBody();*/
 
     // Hacer que el jugador colisione con las paredes
     this.physics.add.collider(player, walls);
 
     //Pared central amb Ysort
-    let pared = walls.create(300, 300, 'wall').setScale(0.3).refreshBody();
-    pared.setDepth(pared.y);
+    //let pared = walls.create(300, 300, 'wall').setScale(0.3).refreshBody();
+    //pared.setDepth(pared.y);
+
+
+    //Creacion guardias
+    guardia = new Guardia(this, 100, 100, [{x: 100, y: 100}, {x: 200, y: 100}]);
+    guardia = this.physics.add.image(400, 300, 'cubo').setScale(1);
 }
 
 function update() {
