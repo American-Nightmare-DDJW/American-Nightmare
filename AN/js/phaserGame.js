@@ -8,7 +8,7 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: false
+            debug: true
         }
     },
     scene: {
@@ -21,20 +21,26 @@ const config = {
 let player, guardia;
 let keys;
 let walls;
+let casa, casa2;
 
 const game = new Phaser.Game(config);
 
 function preload() {
-    this.load.image('fondo', '../assets/ciudad.png');
+    this.load.image('fondo', '../assets/fondo.png');
     this.load.image('policia', '../assets/policia/policia_static.png');
     this.load.image('personaje', '../assets/emiliano/emiliano_static.png');
+    this.load.image('wall1', '../assets/ciudad_edificios/ed_edificios_inicio(1).png');
     this.load.image('wall', '../assets/casa.png');
+    this.load.image('wall2', '../assets/ciudad_edificios/ed_edificos_arriba(5).png');
+
 }
 
 function create() {
     this.add.image(0, 0, 'fondo').setOrigin(0, 0).setDisplaySize(800, 600);
-    player = this.physics.add.image(400, 300, 'personaje').setScale(1);
+    player = this.physics.add.image(100, 500, 'personaje').setScale(0.5);// SPAWN POINT--------------------------
     player.setCollideWorldBounds(true);
+    player.setSize(20, 10);       // Tamaño de la caja de colisión (ancho, alto)
+    player.setOffset(30, 120); 
 
     keys = this.input.keyboard.addKeys({
         up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -43,28 +49,28 @@ function create() {
         right: Phaser.Input.Keyboard.KeyCodes.D
     });
 
-    // Crear grupo de paredes estáticas
-    /*walls = this.physics.add.staticGroup();
+    
+    // CASES 1a FILA
+    casa = this.physics.add.image(394, 450, 'wall1').setScale(0.4);
+    casa.setImmovable(true);
+    casa.body.allowGravity = false;
+    casa.setSize(1350, 50);
+    casa.setOffset(0, 300);
+    this.physics.add.collider(player, casa);
 
-    walls.create(400, 50, 'wall').setScale(2, 1).setScale(0.3).refreshBody(); // pared superior
-    walls.create(400, 550, 'wall').setScale(2, 1).setScale(0.3).refreshBody(); // pared inferior
-    walls.create(50, 300, 'wall').setScale(1, 6).setScale(0.3).refreshBody(); // izquierda
-    walls.create(750, 300, 'wall').setScale(1, 6).setScale(0.3).refreshBody(); // derecha
-
-    walls.create(300, 300, 'wall').setScale(1.5, 0.5).setScale(0.3).refreshBody();*/
-
-    // Hacer que el jugador colisione con las paredes
-    this.physics.add.collider(player, walls);
-
-    //Pared central amb Ysort
-    //let pared = walls.create(300, 300, 'wall').setScale(0.3).refreshBody();
-    //pared.setDepth(pared.y);
-
-
+    //CASES FINAL
+    casa2 = this.physics.add.image(400, 35, 'wall2').setScale(0.4)
+    casa2.setImmovable(true);
+    casa2.body.allowGravity = false;
+    casa2.setSize(2000, 50);
+    casa2.setOffset(40, 105);
+    this.physics.add.collider(player, casa2);
+    
     //Creacion guardias
     guardia = new Guardia(this, 100, 100, [{x: 100, y: 100}, {x: 200, y: 100}]);
-    guardia = this.physics.add.image(400, 300, 'policia').setScale(1);
+
 }
+
 
 function update() {
     player.setVelocity(0);
@@ -80,5 +86,17 @@ function update() {
     } else if (keys.down.isDown) {
         player.setVelocityY(200);
     }
-    player.setDepth(player.y);//Y sort
+
+    // o para todos:
+    this.children.each(obj => {
+        if (!obj.getData('sorted') && obj.body) {
+            setDepthByFeet(obj);
+        }
+    });
+}
+
+function setDepthByFeet(obj) {
+    if (!obj.body) return;
+    const feetY = obj.y + (obj.displayHeight * (1 - obj.originY)); // NO FUNCIONA!!!!!!!!!!!!
+    obj.setDepth(feetY);
 }
