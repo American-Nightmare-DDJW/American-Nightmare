@@ -1,5 +1,5 @@
 function preload() {
-    this.load.image('policia', '../assets/policia.png');
+    this.load.image('policia', '../assets/policia/policia_static.png');
     this.load.image('wall', '../assets/casa.png');
 }
 

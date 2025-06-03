@@ -26,13 +26,13 @@ const game = new Phaser.Game(config);
 
 function preload() {
     this.load.image('fondo', '../assets/ciudad.png');
-    this.load.image('policia', '../assets/policia.png');
-    this.load.image('personaje', '../assets/emiliano.png');
+    this.load.image('policia', '../assets/policia/policia_static.png');
+    this.load.image('personaje', '../assets/emiliano/emiliano_static.png');
     this.load.image('wall', '../assets/casa.png');
 }
 
 function create() {
-    this.add.image(0, 0, 'fondo').setOrigin(0, 0);
+    this.add.image(0, 0, 'fondo').setOrigin(0, 0).setDisplaySize(800, 600);
     player = this.physics.add.image(400, 300, 'personaje').setScale(1);
     player.setCollideWorldBounds(true);
 
