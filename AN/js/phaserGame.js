@@ -95,6 +95,7 @@ function update() {
     });
 }
 
+//NO TOCARRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function setDepthByFeet(obj) {
     if (!obj.body) return;
     const feetY = obj.y + (obj.displayHeight * (1 - obj.originY)); // NO FUNCIONA!!!!!!!!!!!!
