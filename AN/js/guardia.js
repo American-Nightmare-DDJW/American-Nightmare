@@ -1,5 +1,5 @@
 function preload() {
-    this.load.image('cubo', '../assets/policia.png');
+    this.load.image('policia', '../assets/policia.png');
     this.load.image('wall', '../assets/casa.png');
 }
 
@@ -11,7 +11,7 @@ class Guardia extends Phaser.GameObjects.Container {
         this.patrullaPunts = patrullaPunts;
         this.puntActual = 0;
 
-        this.sprite = scene.add.image(0, 0, 'cubo').setScale(0.5);;
+        this.sprite = scene.add.image(0, 0, 'policia').setScale(0.5);;
         this.add(this.sprite);
         
         //Cercle detecció
