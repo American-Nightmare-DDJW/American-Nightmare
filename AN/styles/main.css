@@ -1,0 +1,49 @@
+ body {
+   margin: 0;
+   padding: 0;
+   background-image: url('../assets/Fondo_externo.png');
+   background-size: cover;
+   /* Ajusta la imagen para cubrir toda la pantalla */
+   background-position: center;
+   /* Centra la imagen */
+   background-repeat: no-repeat;
+   /* No repetirla */
+   background-attachment: fixed;
+   /* Fijo mientras se desplaza */
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   height: 100vh;
+ }
+
+ #gameContainer {
+   width: 800px;
+   height: 600px;
+   overflow: hidden;
+   background-color: white;
+ }
+
+ #buttons {
+   margin-bottom: 10px;
+ }
+
+ button {
+   margin-top: 3rem;
+   background: none;
+   border: none;
+   padding: 0;
+   cursor: pointer;
+   display: inline-block;
+ }
+
+ .boton-img img {
+    display: block;
+    width: 200px;
+    height: auto;
+    transition: transform 0.1s ease;
+}
+
+.boton-img:active img {
+    transform: scale(0.97); /* Simula que se presiona */
+}
