@@ -1,6 +1,6 @@
 # American-Nightmare
 
-# Joc Web amb Phaser - "Missió Identitat"
+# Joc Web amb Phaser
 
 ## i. Introducció
 
