@@ -2,14 +2,20 @@ class GameOver extends Phaser.Scene {
     constructor() {
         super('gameOver');
     }
+     preload() {
+        this.load.image('gameover_img', '../assets/imagen_derrota.png'); 
+    }
 
     create() {
 
         //CAMBIAR A IMAGEN DE GAMEOVERR!!!!!
-        this.add.text(400, 300, '¡OVER!', {
-            fontSize: '48px',
-            color: '#ffffff'
-        }).setOrigin(0.5);
+        const centerX = this.scale.width / 2;
+        const centerY = this.scale.height / 2;
+
+        // Imagen de Game Over centrada
+        this.add.image(centerX, centerY, 'gameover_img').setOrigin(0.5);
+
+     
 
         // Botón de reintentar
         const boton = this.add.text(width / 2, height / 2 + 50, 'Reintentar', {
