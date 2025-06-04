@@ -64,13 +64,13 @@ class Guardia extends Phaser.GameObjects.Container {
         }
     }
 
-    actualitzarJugador(jugador) {
-        const dist = Phaser.Math.Distance.Between(this.x, this.y, jugador.x, jugador.y);
+    actualitzarJugador(player) {
+        const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
         if (dist < this.radiDetecta) {
             console.log("Game Over: massa a prop!");
         }
 
-        const angle = Phaser.Math.Angle.Between(this.x, this.y, jugador.x, jugador.y);
+        const angle = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
         const angleRelatiu = Phaser.Math.Angle.WrapDegrees(Phaser.Math.RadToDeg(angle) - this.rotation);
 
         if (Math.abs(angleRelatiu) < this.angleVisio / 2 && dist < this.radiVisio) {
