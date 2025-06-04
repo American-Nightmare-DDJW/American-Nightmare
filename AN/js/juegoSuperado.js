@@ -10,8 +10,8 @@ class JuegoSuperado extends Phaser.Scene {
         const centerY = this.scale.height / 2;
 
        this.add.image(centerX, centerY, 'victoria_img')
-    .setOrigin(0.5)
-    .setScale(0.5);
+    .setOrigin(0.2)
+    .setScale(0.2);
 
        
     }

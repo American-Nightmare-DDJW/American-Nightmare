@@ -13,7 +13,8 @@ const config = {
     },
     scene: [
         { key: 'default', preload, create, update }, // escena principal
-        JuegoSuperado                                 // clase importada o declarada
+        JuegoSuperado,
+        GameOver                              // clase importada o declarada
     ]
 };
 
