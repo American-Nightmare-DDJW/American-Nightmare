@@ -64,7 +64,7 @@ class PausaMenu extends Phaser.Scene {
 
         botonMenu.on('pointerdown', () => {
             this.scene.stop('default');
-            window.location.assign('/AN/index.html'); // Cambia al menú
+            window.location.assign('../index.html'); // Cambia al menú
         });
     }
 }
