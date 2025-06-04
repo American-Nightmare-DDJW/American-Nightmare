@@ -22,6 +22,7 @@ let player, guardia;
 let keys;
 let walls;
 let casa, casa2;
+let traficante;
 
 const game = new Phaser.Game(config);
 
@@ -32,6 +33,8 @@ function preload() {
     this.load.image('wall1', '../assets/ciudad_edificios/ed_edificios_inicio(1).png');
     this.load.image('wall', '../assets/casa.png');
     this.load.image('wall2', '../assets/ciudad_edificios/ed_edificos_arriba(5).png');
+    this.load.image('wall3', '../assets/ciudad_edificios/ed_edificios_arriba(4).png');
+    this.load.image('traf', '../assets/vendedor_identidades.png');
 
 }
 
@@ -65,6 +68,22 @@ function create() {
     casa2.setSize(2000, 50);
     casa2.setOffset(40, 105);
     this.physics.add.collider(player, casa2);
+
+    //CASES MIG
+    casa2 = this.physics.add.image(410, 210, 'wall3').setScale(0.4)
+    casa2.setImmovable(true);
+    casa2.body.allowGravity = false;
+    casa2.setSize(1300, 50);
+    casa2.setOffset(900, 270);
+    this.physics.add.collider(player, casa2);
+
+    //TRAFICANTE
+    traficante = casa2 = this.physics.add.image(750, 50, 'traf').setScale(0.5)
+    traficante.setImmovable(true);
+    traficante.body.allowGravity = false;
+    traficante.setSize(20, 10);
+    traficante.setOffset(30, 120);
+    this.physics.add.collider(player, traficante);
     
     //Creacion guardias
     guardia = new Guardia(this, 100, 100, [{x: 100, y: 100}, {x: 200, y: 100}]);
@@ -98,6 +117,6 @@ function update() {
 //NO TOCARRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function setDepthByFeet(obj) {
     if (!obj.body) return;
-    const feetY = obj.y + (obj.displayHeight * (1 - obj.originY)); // NO FUNCIONA!!!!!!!!!!!!
+    const feetY = obj.body.y + obj.body.height; // NO FUNCIONA!!!!!!!!!!!!
     obj.setDepth(feetY);
 }
