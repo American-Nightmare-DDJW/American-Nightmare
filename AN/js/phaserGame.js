@@ -18,7 +18,8 @@ const config = {
     }
 };
 
-let player, guardia;
+let player;
+let guardia_1, guardia_2, guardia_3, guardia_4, guardia_5;
 let keys;
 let walls;
 let casa, casa2;
@@ -93,7 +94,12 @@ function create() {
     item.body.allowGravity = false;
     
     //Creacion guardias
-    guardia = new Guardia(this, 100, 100, [{x: 100, y: 100}, {x: 200, y: 100}]);
+
+    guardia_1 = new Guardia(this, 422, 511, [{x: 422, y: 511}, {x: 709, y: 511}]);
+    guardia_2 = new Guardia(this, 332, 357, [{x: 332, y: 357}, {x: 673, y: 357}]);
+    guardia_3 = new Guardia(this, 518, 195, [{x: 216, y: 195}, {x: 518, y: 195}]);
+    guardia_4 = new Guardia(this, 26, 112, [{x: 26, y: 112}, {x: 243, y: 112}]);
+    //guardia_5 =
 
     
     // COLISIÓN CON EL OBJETO → RECOGER
@@ -112,6 +118,7 @@ function create() {
             console.log('Te falta la llave...');
         }
     });
+
 }
 
 
@@ -136,6 +143,19 @@ function update() {
             setDepthByFeet(obj);
         }
     });
+
+    guardia_1.actualitzarJugador(player);
+    guardia_2.actualitzarJugador(player);
+    guardia_3.actualitzarJugador(player);
+
+
+
+
+    this.input.on('pointerdown', function (pointer) {
+    const marker = this.add.circle(pointer.worldX, pointer.worldY, 5, 0xffff00);
+    console.log(`🧭 Marker a: x=${Math.floor(pointer.worldX)}, y=${Math.floor(pointer.worldY)}`);
+    }, this);
+    
 }
 
 //FUNCION PARA CALCULAR EL DEPTH DESDE LOS PIES DE LOS
