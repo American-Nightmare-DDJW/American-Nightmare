@@ -2,13 +2,20 @@ class JuegoSuperado extends Phaser.Scene {
     constructor() {
         super('juegoSuperado');
     }
-
+    preload() {
+        this.load.image('victoria_img', '../assets/imagen_victoria.png'); 
+    }
     create() {
+        const centerX = this.scale.width / 2;
+        const centerY = this.scale.height / 2;
 
-        //CAMBIAR A IMAGEN DE VICTORIA!!!!!
-        this.add.text(400, 300, '¡Juego Superado!', {
-            fontSize: '48px',
-            color: '#ffffff'
-        }).setOrigin(0.5);
+       this.add.image(centerX, centerY, 'victoria_img')
+    .setOrigin(0.5)
+    .setScale(0.5);
+
+       
     }
 }
+
+ 
+
