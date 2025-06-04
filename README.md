@@ -72,4 +72,4 @@ L’objectiu és oferir una experiència senzilla d’estratègia i infiltració
 
 -Juan Diego Suarez Perez
 -Irina Palma
--Leonel Messi
+-Leonel Di Giorgi
