@@ -8,15 +8,16 @@ const config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: true
+            debug: false
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: [
+        { key: 'default', preload, create, update }, // escena principal
+        JuegoSuperado,
+        GameOver                              // clase importada o declarada
+    ]
 };
+
 
 let player;
 let guardia_1, guardia_2, guardia_3, guardia_4;
@@ -46,7 +47,7 @@ function create() {
     player = this.physics.add.image(100, 500, 'personaje').setScale(0.5);// SPAWN POINT--------------------------
     player.setCollideWorldBounds(true);
     player.setSize(20, 10);       // Tamaño de la caja de colisión (ancho, alto)
-    player.setOffset(30, 120); 
+    player.setOffset(30, 120);
 
     keys = this.input.keyboard.addKeys({
         up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -55,7 +56,7 @@ function create() {
         right: Phaser.Input.Keyboard.KeyCodes.D
     });
 
-    
+
     // CASES 1a FILA
     casa = this.physics.add.image(394, 450, 'wall1').setScale(0.4);
     casa.setImmovable(true);
@@ -84,7 +85,7 @@ function create() {
     traficante = casa2 = this.physics.add.image(750, 50, 'traf').setScale(0.5)
     traficante.setImmovable(true);
     traficante.body.allowGravity = false;
-    traficante.setSize(60,90);
+    traficante.setSize(60, 90);
     traficante.setOffset(10, 50);
 
 
@@ -92,16 +93,16 @@ function create() {
     const item = this.physics.add.image(50, 310, 'dinero').setScale(0.02);
     item.setImmovable(true);
     item.body.allowGravity = false;
-    
+
     //Creacion guardias
 
-    guardia_1 = new Guardia(this, 422, 520, [{x: 422, y: 520}, {x: 709, y: 520}]);
-    guardia_2 = new Guardia(this, 113, 345, [{x: 113, y: 345}, {x: 673, y: 345}]);
-    guardia_3 = new Guardia(this, 518, 195, [{x: 216, y: 195}, {x: 518, y: 195}]);
-    guardia_4 = new Guardia(this, 26, 112, [{x: 26, y: 112}, {x: 500, y: 112}]);
+    guardia_1 = new Guardia(this, 422, 520, [{ x: 422, y: 520 }, { x: 709, y: 520 }]);
+    guardia_2 = new Guardia(this, 113, 345, [{ x: 113, y: 345 }, { x: 673, y: 345 }]);
+    guardia_3 = new Guardia(this, 518, 195, [{ x: 216, y: 195 }, { x: 518, y: 195 }]);
+    guardia_4 = new Guardia(this, 26, 112, [{ x: 26, y: 112 }, { x: 500, y: 112 }]);
     //guardia_5 =
 
-    
+
     // COLISIÓN CON EL OBJETO → RECOGER
     this.physics.add.overlap(player, item, () => {
         dineroRecogido = true;
@@ -113,11 +114,28 @@ function create() {
     this.physics.add.overlap(player, traficante, () => {
         if (dineroRecogido) {
             console.log('¡Has ganado!');
-            //this.scene.start('juegoSuperado'); // o window.location.href = "victoria.html";
+            this.scene.start('juegoSuperado');
         } else {
-            console.log('Te falta la llave...');
+            console.log('Te falta el dinero...');
         }
     });
+    //Boton pausa:
+    let estaPausado = false;
+
+    const botonHTML = document.getElementById('pausar');
+    if (botonHTML) {
+        botonHTML.addEventListener('click', () => {
+            if (!estaPausado) {
+                this.scene.pause();
+                estaPausado = true;
+                botonHTML.querySelector('img').style.opacity = '0.5'; // Visual opcional
+            } else {
+                this.scene.resume();
+                estaPausado = false;
+                botonHTML.querySelector('img').style.opacity = '1';
+            }
+        });
+    }
 
 }
 
