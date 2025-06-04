@@ -19,7 +19,7 @@ const config = {
 
 
 let player;
-let guardia_1, guardia_2, guardia_3, guardia_4, guardia_5;
+let guardia_1, guardia_2, guardia_3, guardia_4;
 let keys;
 let walls;
 let casa, casa2;
@@ -95,10 +95,10 @@ function create() {
     
     //Creacion guardias
 
-    guardia_1 = new Guardia(this, 422, 511, [{x: 422, y: 511}, {x: 709, y: 511}]);
-    guardia_2 = new Guardia(this, 332, 357, [{x: 332, y: 357}, {x: 673, y: 357}]);
+    guardia_1 = new Guardia(this, 422, 520, [{x: 422, y: 520}, {x: 709, y: 520}]);
+    guardia_2 = new Guardia(this, 113, 345, [{x: 113, y: 345}, {x: 673, y: 345}]);
     guardia_3 = new Guardia(this, 518, 195, [{x: 216, y: 195}, {x: 518, y: 195}]);
-    guardia_4 = new Guardia(this, 26, 112, [{x: 26, y: 112}, {x: 243, y: 112}]);
+    guardia_4 = new Guardia(this, 26, 112, [{x: 26, y: 112}, {x: 500, y: 112}]);
     //guardia_5 =
 
     
@@ -126,15 +126,15 @@ function update() {
     player.setVelocity(0);
 
     if (keys.left.isDown) {
-        player.setVelocityX(-200);
+        player.setVelocityX(-150);
     } else if (keys.right.isDown) {
-        player.setVelocityX(200);
+        player.setVelocityX(150);
     }
 
     if (keys.up.isDown) {
-        player.setVelocityY(-200);
+        player.setVelocityY(-150);
     } else if (keys.down.isDown) {
-        player.setVelocityY(200);
+        player.setVelocityY(150);
     }
 
     // o para todos:
@@ -147,15 +147,7 @@ function update() {
     guardia_1.actualitzarJugador(player);
     guardia_2.actualitzarJugador(player);
     guardia_3.actualitzarJugador(player);
-
-
-
-
-    this.input.on('pointerdown', function (pointer) {
-    const marker = this.add.circle(pointer.worldX, pointer.worldY, 5, 0xffff00);
-    console.log(`🧭 Marker a: x=${Math.floor(pointer.worldX)}, y=${Math.floor(pointer.worldY)}`);
-    }, this);
-    
+    guardia_4.actualitzarJugador(player);
 }
 
 //FUNCION PARA CALCULAR EL DEPTH DESDE LOS PIES DE LOS

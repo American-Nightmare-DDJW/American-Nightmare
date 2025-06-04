@@ -16,7 +16,7 @@ class Guardia extends Phaser.GameObjects.Container {
         
         //Cercle detecció
         this.radiDetecta = 50;
-        this.deteccio = scene.add.circle(0, 0, this.radiDetecta, 0xff0000, 0.2);
+        this.deteccio = scene.add.circle(0, 0, this.radiDetecta, 0xffffff, 0.2);
         this.add(this.deteccio);
         
         // Con de visió
@@ -34,23 +34,21 @@ class Guardia extends Phaser.GameObjects.Container {
 
     }
 
-
     updateVisio() {
         this.linterna.clear();
-        this.linterna.fillStyle(0xff0000, 0.3);
+        this.linterna.fillStyle(0xffffff, 0.3); // canvia el color a blanc
 
-        // Calcula els angles de tall basats en la direcció actual
+        // Dibuixar el con en la direcció this.angleLinterna (0 = dreta, 180 = esquerra)
         const angleStart = Phaser.Math.DegToRad(this.angleLinterna - this.angleVisio / 2);
         const angleEnd = Phaser.Math.DegToRad(this.angleLinterna + this.angleVisio / 2);
 
         this.linterna.slice(0, 0, this.radiVisio, angleStart, angleEnd, false);
         this.linterna.fillPath();
     }
-
     patrullar() {
         const desti = this.patrullaPunts[this.puntActual];
         this.vel = new Phaser.Math.Vector2(desti.x - this.x, desti.y - this.y).normalize();
-        this.scene.physics.moveTo(this, desti.x, desti.y, 60);
+        this.scene.physics.moveTo(this, desti.x, desti.y, 100);
 
         // Actualitzar angle de la linterna segons la direcció
         if (this.vel.x > 0.1) {
@@ -72,7 +70,7 @@ class Guardia extends Phaser.GameObjects.Container {
         }
 
         const angle = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
-        const angleRelatiu = Phaser.Math.Angle.WrapDegrees(Phaser.Math.RadToDeg(angle) - this.rotation);
+        const angleRelatiu = Phaser.Math.Angle.WrapDegrees(Phaser.Math.RadToDeg(angle) - this.angleLinterna);
 
         if (Math.abs(angleRelatiu) < this.angleVisio / 2 && dist < this.radiVisio) {
             console.log("Game Over: dins del con!");
