@@ -2,7 +2,7 @@ class GameOver extends Phaser.Scene {
     constructor() {
         super('gameOver');
     }
-     preload() {
+    preload() {
         this.load.image('gameover_img', '../assets/imagen_derrota.png'); 
     }
 
@@ -18,7 +18,8 @@ class GameOver extends Phaser.Scene {
      
 
         // Botón de reintentar
-        const boton = this.add.text(width / 2, height / 2 + 50, 'Reintentar', {
+
+         const boton = this.add.text(centerX, centerY + 150, 'Reintentar', {
             fontSize: '32px',
             backgroundColor: '#ffffff',
             color: '#000',
@@ -27,7 +28,7 @@ class GameOver extends Phaser.Scene {
         .setOrigin(0.5)
         .setInteractive({ useHandCursor: true })
         .on('pointerdown', () => {
-            this.scene.start('main'); // Vuelve a la escena principal
+            this.scene.start('default'); // Vuelve a la escena principal
         });
     }
 }
