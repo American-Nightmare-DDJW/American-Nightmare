@@ -11,12 +11,12 @@ const config = {
             debug: true
         }
     },
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
+    scene: [
+        { key: 'default', preload, create, update }, // escena principal
+        JuegoSuperado                                 // clase importada o declarada
+    ]
 };
+
 
 let player;
 let guardia_1, guardia_2, guardia_3, guardia_4;
@@ -113,9 +113,9 @@ function create() {
     this.physics.add.overlap(player, traficante, () => {
         if (dineroRecogido) {
             console.log('¡Has ganado!');
-            //this.scene.start('juegoSuperado'); // o window.location.href = "victoria.html";
+            this.scene.start('juegoSuperado');
         } else {
-            console.log('Te falta la llave...');
+            console.log('Te falta el dinero...');
         }
     });
 
