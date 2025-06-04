@@ -14,7 +14,8 @@ const config = {
     scene: [
         { key: 'default', preload, create, update }, // escena principal
         JuegoSuperado,
-        GameOver                              // clase importada o declarada
+        GameOver,
+        PausaMenu                              // clase importada o declarada
     ]
 };
 
@@ -127,10 +128,12 @@ function create() {
         botonHTML.addEventListener('click', () => {
             if (!estaPausado) {
                 this.scene.pause();
+                this.scene.launch('pausaMenu');
                 estaPausado = true;
-                botonHTML.querySelector('img').style.opacity = '0.5'; // Visual opcional
+                botonHTML.querySelector('img').style.opacity = '0.5';
             } else {
                 this.scene.resume();
+                this.scene.stop('pausaMenu');
                 estaPausado = false;
                 botonHTML.querySelector('img').style.opacity = '1';
             }
