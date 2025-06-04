@@ -23,6 +23,7 @@ let keys;
 let walls;
 let casa, casa2;
 let traficante;
+let dineroRecogido = false;
 
 const game = new Phaser.Game(config);
 
@@ -35,6 +36,7 @@ function preload() {
     this.load.image('wall2', '../assets/ciudad_edificios/ed_edificos_arriba(5).png');
     this.load.image('wall3', '../assets/ciudad_edificios/ed_edificios_arriba(4).png');
     this.load.image('traf', '../assets/vendedor_identidades.png');
+    this.load.image('dinero', '../assets/dinero.png');
 
 }
 
@@ -81,13 +83,35 @@ function create() {
     traficante = casa2 = this.physics.add.image(750, 50, 'traf').setScale(0.5)
     traficante.setImmovable(true);
     traficante.body.allowGravity = false;
-    traficante.setSize(20, 10);
-    traficante.setOffset(30, 120);
-    this.physics.add.collider(player, traficante);
+    traficante.setSize(60,90);
+    traficante.setOffset(10, 50);
+
+
+    //DINERO
+    const item = this.physics.add.image(50, 310, 'dinero').setScale(0.02);
+    item.setImmovable(true);
+    item.body.allowGravity = false;
     
     //Creacion guardias
     guardia = new Guardia(this, 100, 100, [{x: 100, y: 100}, {x: 200, y: 100}]);
 
+    
+    // COLISIÓN CON EL OBJETO → RECOGER
+    this.physics.add.overlap(player, item, () => {
+        dineroRecogido = true;
+        item.destroy(); // eliminar visualmente el objeto
+        console.log('¡Has recogido el dinero!');
+    });
+
+    // COLISIÓN CON EL TRAFICANTE → COMPROBAR CONDICIÓN
+    this.physics.add.overlap(player, traficante, () => {
+        if (dineroRecogido) {
+            console.log('¡Has ganado!');
+            //this.scene.start('juegoSuperado'); // o window.location.href = "victoria.html";
+        } else {
+            console.log('Te falta la llave...');
+        }
+    });
 }
 
 
@@ -114,9 +138,9 @@ function update() {
     });
 }
 
-//NO TOCARRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//FUNCION PARA CALCULAR EL DEPTH DESDE LOS PIES DE LOS
 function setDepthByFeet(obj) {
     if (!obj.body) return;
-    const feetY = obj.body.y + obj.body.height; // NO FUNCIONA!!!!!!!!!!!!
+    const feetY = obj.body.y + obj.body.height;
     obj.setDepth(feetY);
 }
