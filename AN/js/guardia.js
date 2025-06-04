@@ -68,6 +68,7 @@ class Guardia extends Phaser.GameObjects.Container {
         const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
         if (dist < this.radiDetecta) {
             console.log("Game Over: massa a prop!");
+            this.scene.scene.start('gameOver');
         }
 
         const angle = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
@@ -75,6 +76,7 @@ class Guardia extends Phaser.GameObjects.Container {
 
         if (Math.abs(angleRelatiu) < this.angleVisio / 2 && dist < this.radiVisio) {
             console.log("Game Over: dins del con!");
+            this.scene.scene.start('gameOver');
         }
     }
 
